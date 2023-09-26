@@ -49,23 +49,25 @@ const ProductRegister = () => {
 
     try {
       // Crea un array de promesas para cargar todas las imágenes en paralelo
-      const uploadPromises = context.selectedFiles.map(async (file) => {
+      const uploadPromises = context.selectedFiles.map(async (file, index) => {
         const formData = new FormData();
         formData.append("image", file);
 
-        const response = await axios.post(apiUrl, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        try {
+          const response = await axios.post(apiUrl, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
 
-        if (response.status === 200) {
-          const imageURL = response.data.data.url;
-          uploadedImageURLs.push(imageURL);
-
-          // Aquí puedes realizar más acciones con la URL de la imagen si es necesario
-        } else {
-          console.error("Error al cargar una imagen:", response.statusText);
+          if (response.status === 200) {
+            const imageURL = response.data.data.url;
+            uploadedImageURLs[index] = imageURL; // Almacena la URL en el índice correcto
+          } else {
+            console.error("Error al cargar una imagen:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error al cargar una imagen:", error);
         }
       });
 
@@ -77,6 +79,7 @@ const ProductRegister = () => {
       return uploadedImageURLs;
     }
   }
+
   async function saved() {
     try {
       // Subimos las imágenes a imgBB

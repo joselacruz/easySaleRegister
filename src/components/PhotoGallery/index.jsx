@@ -54,7 +54,7 @@ const ProductGallery = ({ images }) => {
         // Crea un enlace temporal para la descarga automática
         const downloadLink = document.createElement("a");
         downloadLink.href = url;
-        downloadLink.setAttribute("download", "product_image.jpg");
+        downloadLink.setAttribute("download", selectedImage);
 
         // Dispara el clic en el enlace para iniciar la descarga
         downloadLink.click();

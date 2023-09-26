@@ -27,7 +27,7 @@ const CardItem = ({ item }) => {
 
   return (
     <Card
-      sx={{ maxWidth: 265 }}
+      sx={{ width: 265 }}
       elevation={4}
     >
       <CardActionArea onClick={hadleNavigation}>
