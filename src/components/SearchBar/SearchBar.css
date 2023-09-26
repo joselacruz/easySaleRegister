@@ -1,0 +1,28 @@
+
+.searchBar-container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+
+@media (max-width: 599px) {
+  .searchBar-container{
+    width: 100%;
+    margin-block-end: 10px;
+  }
+   .suggest-list{
+    box-sizing: border-box;
+    left: 0;
+    right: 0;
+    height: calc(100vh - 95px);
+
+   }
+   /* Estilo CSS para ocultar el scroll del body */
+.no-scroll {
+    overflow: hidden;
+  }
+  
+  }
+
+  

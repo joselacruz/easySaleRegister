@@ -1,0 +1,104 @@
+import { useContext } from "react";
+import { RegisterProductsContext } from "../../context/RegisterProductsContext";
+import ProductGallery from "../../components/PhotoGallery";
+import { Container, IconButton, Typography } from "@mui/material";
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import LinkIcon from "@mui/icons-material/Link";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { createTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+
+const theme = createTheme();
+
+const ProductView = () => {
+  const navigate = useNavigate();
+
+  const context = useContext(RegisterProductsContext);
+
+  const backPage = () => {
+    navigate("/");
+  };
+
+  return (
+    <Container
+      component="main"
+      maxWidth="md"
+      sx={{
+        marginBlockStart: "60px",
+        display: "grid",
+        gap: 2,
+        marginBlockEnd: "94px",
+      }}
+    >
+      <IconButton
+        onClick={backPage}
+        sx={{ position: "absolute", top: "90px", left: 0, zIndex: 1 }}
+      >
+        <ChevronLeftIcon sx={{ fontSize: "48px" }} />
+      </IconButton>
+
+      <ProductGallery images={context.bigProduct.image} />
+      <Typography
+        variant="h4"
+        component="h2"
+        textAlign="center"
+        color={theme.palette.primary.main}
+      >
+        {context.bigProduct.title}
+      </Typography>
+
+      <Typography
+        variant="subtitle2"
+        sx={{ display: "flex", alignItems: "center", fontSize: "1rem", gap: 1 }}
+      >
+        <AttachMoneyIcon sx={{ color: `${theme.palette.primary.main}` }} />
+        Precio:
+        <Typography
+          variant="body2"
+          component="span"
+          sx={{ marginInlineStart: 1 }}
+        >
+          ${context.bigProduct.price}
+        </Typography>
+      </Typography>
+
+      <Typography
+        variant="subtitle2"
+        sx={{ display: "flex", alignItems: "center", fontSize: "1rem", gap: 1 }}
+      >
+        <StorefrontIcon sx={{ color: `${theme.palette.primary.main}` }} />
+        Precio de venta:
+        <Typography
+          variant="body2"
+          component="span"
+          sx={{ marginInlineStart: 1 }}
+        >
+          ${context.bigProduct.salePrice}
+        </Typography>
+      </Typography>
+
+      <Typography
+        sx={{ display: "flex", alignItems: "center", fontSize: "1rem", gap: 1 }}
+      >
+        <LinkIcon sx={{ color: `${theme.palette.primary.main}` }} />
+
+        <a
+          href={context.bigProduct.url}
+          target="_blank"
+        >
+          Link
+        </a>
+      </Typography>
+
+      <Typography
+        variant="h6"
+        component="h3"
+      >
+        Caracteristicas del producto
+      </Typography>
+      <Typography> {context.bigProduct.description}</Typography>
+    </Container>
+  );
+};
+export default ProductView;
