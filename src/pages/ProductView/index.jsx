@@ -25,7 +25,7 @@ const ProductView = () => {
       component="main"
       maxWidth="md"
       sx={{
-        marginBlockStart: "60px",
+        marginBlockStart: "70px",
         display: "grid",
         gap: 2,
         marginBlockEnd: "94px",
@@ -33,7 +33,7 @@ const ProductView = () => {
     >
       <IconButton
         onClick={backPage}
-        sx={{ position: "absolute", top: "90px", left: 0, zIndex: 1 }}
+        sx={{ position: "absolute", top: "100px", left: 0, zIndex: 1 }}
       >
         <ChevronLeftIcon sx={{ fontSize: "48px" }} />
       </IconButton>

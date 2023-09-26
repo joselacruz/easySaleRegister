@@ -20,15 +20,6 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
@@ -54,7 +45,7 @@ const SearchBar = () => {
 
   const [suggest, setSuggest] = useState("");
 
-  const [isBoxOpen, setIsBoxOpen] = useState(true);
+  const [isBoxOpen, setIsBoxOpen] = useState(false);
 
   const boxRef = useRef(null);
 
@@ -81,6 +72,8 @@ const SearchBar = () => {
         suggestArrayTitles.unshift(queryToSearch);
         setSuggest(suggestArrayTitles);
       }
+    } else {
+      setIsBoxOpen(false);
     }
   };
 
@@ -191,7 +184,7 @@ const SearchBar = () => {
       // Asegurarse de eliminar la clase al desmontar el componente
       document.body.classList.remove("no-scroll");
     };
-  }, [isBoxOpen]);
+  }, [isBoxOpen, setIsBoxOpen]);
 
   return (
     <div className="searchBar-container">
@@ -222,6 +215,7 @@ const SearchBar = () => {
         <Box
           ref={boxRef}
           position="absolute"
+          elevation={2}
           sx={{
             width: {
               sm: "465.38px",

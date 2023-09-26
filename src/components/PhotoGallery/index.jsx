@@ -3,7 +3,6 @@ import {
   CardMedia,
   IconButton,
   Box,
-  Container,
   Typography,
   Backdrop,
 } from "@mui/material";
@@ -11,7 +10,7 @@ import { createTheme, styled } from "@mui/material/styles";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import "./ProductGallery.css";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -96,6 +95,7 @@ const ProductGallery = ({ images }) => {
   const handleCarouselChange = (index) => {
     setSelectedImage(images[index]);
   };
+
   return (
     <>
       {isMobile ? (
@@ -125,7 +125,7 @@ const ProductGallery = ({ images }) => {
                 }}
               >
                 <Typography variant="body1">
-                  {index + 1}/{images.length}
+                  {`${index + 1}/${images.length}`}
                 </Typography>
               </Box>
             </div>

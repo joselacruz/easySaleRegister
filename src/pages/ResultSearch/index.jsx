@@ -54,11 +54,11 @@ const ResultSearch = () => {
   return (
     <Container
       component="main"
-      sx={{ marginBlockStart: "40px", marginBlockEnd: "90px" }}
+      sx={{ marginBlockStart: "40px", marginBlockEnd: "100px" }}
     >
       <IconButton
         onClick={backPage}
-        sx={{ position: "absolute", top: "94px", left: 0, zIndex: 1 }}
+        sx={{ position: "absolute", top: "100px", left: 0, zIndex: 1 }}
       >
         <ChevronLeftIcon sx={{ fontSize: "48px" }} />
       </IconButton>
