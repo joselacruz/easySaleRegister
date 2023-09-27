@@ -30,13 +30,13 @@ const ProductRegister = () => {
       }
     } else {
       enqueueSnackbar("Agrega una imagen del producto", {
-        variant: "error",
+        variant: "warning",
         anchorOrigin: {
           vertical: "top",
           horizontal: "right",
         },
       });
-      console.log("seleciona una imagen valida");
+
       context.setRequest(false);
     }
   };
@@ -106,7 +106,7 @@ const ProductRegister = () => {
     <>
       <ProductForm
         submit={handleSubmit}
-        component={<FileUpload close />}
+        component={<FileUpload />}
       />
     </>
   );
