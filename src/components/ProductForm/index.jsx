@@ -100,6 +100,8 @@ const ProductForm = ({ component, submit }) => {
             <TextField
               fullWidth
               label="Descripción"
+              multiline="true"
+              rows={4}
               name="description"
               value={context.formData.description}
               onChange={handleChange}

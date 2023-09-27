@@ -8,6 +8,7 @@ import LinkIcon from "@mui/icons-material/Link";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { formatTextWithLineBreaks } from "../../utils/formatText";
 
 const theme = createTheme();
 
@@ -19,6 +20,9 @@ const ProductView = () => {
   const backPage = () => {
     navigate("/");
   };
+  const formattedText = formatTextWithLineBreaks(
+    context.bigProduct.description
+  );
 
   return (
     <Container
@@ -97,7 +101,7 @@ const ProductView = () => {
       >
         Caracteristicas del producto
       </Typography>
-      <Typography> {context.bigProduct.description}</Typography>
+      <Typography>{formattedText}</Typography>
     </Container>
   );
 };

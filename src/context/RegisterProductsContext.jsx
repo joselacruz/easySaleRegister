@@ -16,6 +16,7 @@ export const RegisterProductsProvider = ({ children }) => {
 
   const [request, setRequest] = useState(false);
   const [products, setProducts] = useState([]);
+
   const [openDrawer, setOpenDrawer] = useState(false);
   const [bigProduct, setBigProduct] = useState({});
 

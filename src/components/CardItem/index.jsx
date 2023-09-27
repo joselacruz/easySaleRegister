@@ -7,6 +7,8 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  CircularProgress,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +17,12 @@ import { useContext, useState } from "react";
 import ConfirmationModal from "../ConfirmationModal";
 
 const CardItem = ({ item }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   const context = useContext(RegisterProductsContext);
   const navigate = useNavigate();
   const [openModalDelete, setOpenModalDelete] = useState(false);
@@ -45,14 +53,50 @@ const CardItem = ({ item }) => {
         elevation={4}
       >
         <CardActionArea onClick={hadleNavigation}>
-          <CardMedia
+          {/* contenedor para mostrar un estado de carga mientras la imagen  aun
+          no ha cargado  Cuando la imagen se carga y se ejecuta el evento onLoad, imageLoaded 
+          se establece en true, lo que hará que el div de fondo gris con el indicador de carga 
+          desaparezca, revelando la imagen cargada debajo. */}
+          <div style={{ position: "relative" }}>
+            {imageLoaded ? null : (
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "rgba(242, 242, 242, 0.2)",
+                }}
+              >
+                <CircularProgress color="primary" />
+              </div>
+            )}
+            <CardMedia
+              component="img"
+              height="140"
+              image={item.image[0]}
+              loading="lazy"
+              alt={item.title}
+              sx={{ objectFit: "contain" }}
+              onLoad={handleImageLoad}
+            />
+          </div>
+          {/* <CardMedia
             component="img"
             height="140"
             image={item.image[0]}
             loading="lazy"
             alt={item.title}
-            sx={{ objectFit: "contain" }}
-          ></CardMedia>
+            sx={{
+              objectFit: "contain",
+              position: "relative",
+              background: "gray",
+            }}
+          ></CardMedia> */}
           <CardContent>
             <Typography
               variant="h6"
