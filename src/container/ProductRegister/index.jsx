@@ -5,7 +5,6 @@ import { useContext } from "react";
 import axios from "axios";
 import { saveToFirebase } from "../../utils/firebase";
 import { useSnackbar } from "notistack";
-import { Box } from "@mui/material";
 
 const ProductRegister = () => {
   const context = useContext(RegisterProductsContext);
@@ -90,10 +89,12 @@ const ProductRegister = () => {
       const savedData = { ...context.formData };
       savedData["image"] = urlImg;
 
-      //Guardamos los datos en el Estado del Contexto
-      context.addProduct(savedData);
       // Finalmente, se guardan los datos en Firestore
-      await saveToFirebase(savedData, "items");
+      const docId = await saveToFirebase(savedData, "items");
+
+      //Guardamos los datos en el Estado del Contexto con el id de referencia
+      //del doc de firestore
+      context.addProduct({ id: docId, ...savedData });
     } catch (error) {
       console.error("Error en la operación de guardado:", error);
       // Puedes manejar el error de acuerdo a tus necesidades.

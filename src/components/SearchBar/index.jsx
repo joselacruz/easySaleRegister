@@ -47,8 +47,6 @@ const SearchBar = () => {
 
   const [isBoxOpen, setIsBoxOpen] = useState(false);
 
-  const boxRef = useRef(null);
-
   //Cuando Se escribe en el buscador
   const handleChange = (e) => {
     setIsBoxOpen(true);
@@ -154,6 +152,7 @@ const SearchBar = () => {
   }
 
   //Para cerra la lista de sugerencias cuando se haga click fuera del elemento
+  const boxRef = useRef(null);
   useEffect(() => {
     function handleClickOutside(event) {
       if (boxRef.current && !boxRef.current.contains(event.target)) {

@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { deleteFireBase } from "../utils/firebase";
 
 const initialState = {
   title: "",
@@ -24,6 +25,14 @@ export const RegisterProductsProvider = ({ children }) => {
     setProducts((prevProducts) => [...prevProducts, newProduct]);
   };
 
+  // ** Eliminar productos del estado y de firebase
+  const deleteProduct = (product) => {
+    const filter = products.filter((item) => item.id !== product.id);
+    setProducts(filter);
+    deleteFireBase(product.id);
+  };
+  // **
+
   const updateFormData = (data) => {
     setFormData(data);
   };
@@ -44,6 +53,7 @@ export const RegisterProductsProvider = ({ children }) => {
         products,
         setProducts,
         addProduct,
+        deleteProduct,
         resetFormAndSelectedFiles,
         openDrawer,
         setOpenDrawer,

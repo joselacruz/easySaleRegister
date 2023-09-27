@@ -1,20 +1,23 @@
 import LinkIcon from "@mui/icons-material/Link";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
+  Button,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
-  IconButton,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { RegisterProductsContext } from "../../context/RegisterProductsContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import ConfirmationModal from "../ConfirmationModal";
 
 const CardItem = ({ item }) => {
   const context = useContext(RegisterProductsContext);
   const navigate = useNavigate();
+  const [openModalDelete, setOpenModalDelete] = useState(false);
 
   const hadleNavigation = () => {
     const useRoute = item.title.split(" ").join("-");
@@ -24,61 +27,94 @@ const CardItem = ({ item }) => {
     context.setBigProduct(item);
     navigate(path);
   };
+  const handleLink = () => {
+    window.open(item.url, "_blanbk");
+  };
+  const handleClickConfirmDelete = () => {
+    setOpenModalDelete(true);
+  };
+
+  function handleDelete() {
+    context.deleteProduct(item);
+  }
 
   return (
-    <Card
-      sx={{ width: 265 }}
-      elevation={4}
-    >
-      <CardActionArea onClick={hadleNavigation}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={item.image[0]}
-          alt={item.title}
-          sx={{ objectFit: "contain" }}
-        ></CardMedia>
-        <CardContent>
-          <Typography
-            variant="h6"
-            color="primary"
-          >
-            {item.title}
-          </Typography>
-          <Typography variant="subtitle2">
-            Precio:
+    <>
+      <Card
+        sx={{ width: 265 }}
+        elevation={4}
+      >
+        <CardActionArea onClick={hadleNavigation}>
+          <CardMedia
+            component="img"
+            height="140"
+            image={item.image[0]}
+            loading="lazy"
+            alt={item.title}
+            sx={{ objectFit: "contain" }}
+          ></CardMedia>
+          <CardContent>
             <Typography
-              variant="body2"
-              component="span"
-              sx={{ marginInlineStart: 1 }}
+              variant="h6"
+              color="primary"
             >
-              $ {item.price}
+              {item.title}
             </Typography>
-          </Typography>
-          <Typography variant="subtitle2">
-            Precio Venta:
-            <Typography
-              variant="body2"
-              component="span"
-              sx={{ marginInlineStart: 1 }}
-            >
-              $ {item.salePrice}
+            <Typography variant="subtitle2">
+              Precio:
+              <Typography
+                variant="body2"
+                component="span"
+                sx={{ marginInlineStart: 1 }}
+              >
+                $ {item.price}
+              </Typography>
             </Typography>
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <IconButton>
-          <LinkIcon />
-        </IconButton>
-        <a
-          href={item.url}
-          target="_blank"
+            <Typography variant="subtitle2">
+              Precio Venta:
+              <Typography
+                variant="body2"
+                component="span"
+                sx={{ marginInlineStart: 1 }}
+              >
+                $ {item.salePrice}
+              </Typography>
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: 2,
+          }}
         >
-          Link
-        </a>
-      </CardActions>
-    </Card>
+          <Button
+            variant="contained"
+            size="small"
+            endIcon={<LinkIcon />}
+            onClick={handleLink}
+          >
+            Link
+          </Button>
+          <Button
+            size="small"
+            variant="outlined"
+            startIcon={<DeleteIcon />}
+            onClick={handleClickConfirmDelete}
+          >
+            Eliminar
+          </Button>
+        </CardActions>
+      </Card>
+
+      <ConfirmationModal
+        open={openModalDelete}
+        onClose={() => setOpenModalDelete(false)}
+        onDelete={handleDelete}
+        productDeleteTitle={item.title}
+      />
+    </>
   );
 };
 

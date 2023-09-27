@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDocs, collection, addDoc } from "firebase/firestore";
+import { getDocs, collection, addDoc,doc, deleteDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -24,13 +24,21 @@ export const db = getFirestore(app);
 export const saveToFirebase = async (data, key) => {
     try {
       const docRef = await addDoc(collection(db, key), data);
-      console.log("Text saved to Firestore with document ID:", docRef.id);
+      return docRef.id
     } catch (error) {
       console.error("Error saving text to Firestore:", error);
     }
   };
 
 
+  export const deleteFireBase = async (docID) => {
+    try{
+      await deleteDoc(doc(db, "items", docID));
+    }
+    catch(error) {
+      console.log("error delete doc id",error)
+    }
+  }
 
   export const readFirebase = async (collectionName) => {
     try {
