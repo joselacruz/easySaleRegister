@@ -85,22 +85,14 @@ const CardItem = ({ item }) => {
               onLoad={handleImageLoad}
             />
           </div>
-          {/* <CardMedia
-            component="img"
-            height="140"
-            image={item.image[0]}
-            loading="lazy"
-            alt={item.title}
-            sx={{
-              objectFit: "contain",
-              position: "relative",
-              background: "gray",
-            }}
-          ></CardMedia> */}
+
           <CardContent>
             <Typography
-              variant="h6"
+              variant="subtitle1"
               color="primary"
+              height="64px"
+              gutterBottom
+              sx={{ fontWeight: "bold" }}
             >
               {item.title}
             </Typography>

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { RegisterProductsContext } from "../../context/RegisterProductsContext";
 import ProductGallery from "../../components/PhotoGallery";
 import { Container, IconButton, Typography } from "@mui/material";
@@ -23,6 +23,11 @@ const ProductView = () => {
   const formattedText = formatTextWithLineBreaks(
     context.bigProduct.description
   );
+
+  useEffect(() => {
+    // Hacer scroll al principio (Y=0) cuando el componente se monta
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container

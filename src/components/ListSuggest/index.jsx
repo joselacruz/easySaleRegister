@@ -6,8 +6,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function ListSuggest({ suggest, onOptionSelect }) {
-  const [selectedItemIndex, setSelectedItemIndex] = useState(1);
+export default function ListSuggest({ suggest, onOptionSelect, set }) {
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -19,8 +19,6 @@ export default function ListSuggest({ suggest, onOptionSelect }) {
         setSelectedItemIndex((prevIndex) =>
           prevIndex < suggest.length - 1 ? prevIndex + 1 : prevIndex
         );
-      } else if (event.key === "Enter" && selectedItemIndex !== -1) {
-        onOptionSelect(suggest[selectedItemIndex]);
       }
     };
 
@@ -31,6 +29,7 @@ export default function ListSuggest({ suggest, onOptionSelect }) {
     };
   }, [suggest, selectedItemIndex, onOptionSelect]);
 
+  set(suggest[selectedItemIndex]);
   return (
     <>
       {suggest.length > 0 && (
@@ -44,7 +43,7 @@ export default function ListSuggest({ suggest, onOptionSelect }) {
                 disablePadding
                 key={index}
                 onClick={() => onOptionSelect(option)}
-                selected={selectedItemIndex === index}
+                selected={selectedItemIndex == index}
               >
                 <ListItemButton>
                   <ListItemIcon>

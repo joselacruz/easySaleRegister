@@ -75,7 +75,7 @@ const SearchBar = () => {
     }
   };
 
-  //Cuando es Presionada la Tecla Enter en el Input
+  // Cuando es Presionada la Tecla Enter en el Input
   const handleEnterKey = (event) => {
     if (event.keyCode === 13) {
       if (isNotBlank(query)) {
@@ -223,12 +223,15 @@ const SearchBar = () => {
 
             zIndex: 3,
             top: "40px",
+            overflowY: "scroll",
+            backgroundColor: "white",
           }}
           className="suggest-list"
         >
           <ListSuggest
             suggest={suggest}
             onOptionSelect={handleOptionSelect}
+            set={setQuery}
           />
         </Box>
       )}
