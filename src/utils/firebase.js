@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDocs, collection, addDoc,doc, deleteDoc } from "firebase/firestore";
+import { getDocs, collection, addDoc,doc, deleteDoc ,updateDoc} from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -30,6 +31,15 @@ export const saveToFirebase = async (data, key) => {
     }
   };
 
+  export const updateFirebase = async ({docID, data}) => {
+
+    try{
+      const ref = doc(db, "items", docID);
+      await updateDoc(ref, data);
+    } catch(error){
+      console.error("Error update doc:", error);
+    }
+  }
 
   export const deleteFireBase = async (docID) => {
     try{

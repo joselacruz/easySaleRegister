@@ -1,24 +1,21 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Typography, Box, Button, IconButton } from "@mui/material";
-import { RegisterProductsContext } from "../../context/RegisterProductsContext";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 
-const FileUpload = () => {
-  const context = useContext(RegisterProductsContext);
-
+const FileUpload = ({ images, setImages }) => {
   const onDrop = useCallback(
     (acceptedFiles) => {
-      context.setSelectedFiles((prevSelectedFiles) => [
+      setImages((prevSelectedFiles) => [
         ...prevSelectedFiles,
         ...acceptedFiles,
       ]);
     },
-    [context.selectedFiles]
+    [images]
   );
 
   const removeFile = (index) => {
-    context.setSelectedFiles((prevSelectedFiles) => {
+    setImages((prevSelectedFiles) => {
       const updatedFiles = [...prevSelectedFiles];
       updatedFiles.splice(index, 1);
       return updatedFiles;
@@ -51,29 +48,50 @@ const FileUpload = () => {
             justifyContent: "center",
           }}
         >
-          {context.selectedFiles.map((file, index) => (
+          {images.map((file, index) => (
             <div
               key={index}
               style={{ margin: "5px" }}
             >
-              <img
-                src={URL.createObjectURL(file)}
-                alt={file.name}
-                width="50"
-                height="50"
-              />
-              <Typography
-                variant="body2"
-                align="center"
-                fontSize="10px"
-              >
-                {file.name}
-              </Typography>
+              {file instanceof File ? (
+                <>
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={file.name}
+                    width="50"
+                    height="50"
+                  />
+                  <Typography
+                    variant="body2"
+                    align="center"
+                    fontSize="10px"
+                  >
+                    {file.name}
+                  </Typography>
+                </>
+              ) : (
+                <>
+                  <img
+                    src={file}
+                    alt={file}
+                    width="50"
+                    height="50"
+                  />
+                  <Typography
+                    variant="body2"
+                    align="center"
+                    fontSize="10px"
+                  >
+                    {file}
+                  </Typography>
+                </>
+              )}
+
               <Button
                 variant="outlined"
                 color="primary"
                 onClick={(e) => {
-                  e.stopPropagation(); // Evita la propagación del evento al contenedor Dropzone
+                  e.stopPropagation();
                   removeFile(index);
                 }}
               >
@@ -82,7 +100,7 @@ const FileUpload = () => {
             </div>
           ))}
         </Box>
-        {context.selectedFiles.length === 0 && (
+        {images.length === 0 && (
           <Button
             variant="outlined"
             color="primary"
@@ -90,7 +108,7 @@ const FileUpload = () => {
             Agregar
           </Button>
         )}
-        {context.selectedFiles.length > 0 && (
+        {images.length > 0 && (
           <IconButton
             variant="outlined"
             color="secondary"

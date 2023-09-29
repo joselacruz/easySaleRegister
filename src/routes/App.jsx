@@ -7,6 +7,7 @@ import { useRoutes, BrowserRouter } from "react-router-dom";
 import ProductView from "../pages/ProductView/index.jsx";
 import Home from "../pages/Home/index.jsx";
 import ResultSearch from "../pages/ResultSearch/index.jsx";
+import Edit from "../pages/Edit/index.jsx";
 
 function App() {
   const AppRoutes = () => {
@@ -14,6 +15,7 @@ function App() {
       { path: "/product/:id", element: <ProductView /> },
       { path: "/", element: <Home /> },
       { path: "search/:id", element: <ResultSearch /> },
+      { path: "edit/:id", element: <Edit /> },
     ]);
     return routes;
   };

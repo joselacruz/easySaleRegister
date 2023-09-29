@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { RegisterProductsContext } from "../../context/RegisterProductsContext";
 import ProductGallery from "../../components/PhotoGallery";
-import { Container, IconButton, Typography } from "@mui/material";
+import { Button, Container, IconButton, Typography } from "@mui/material";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LinkIcon from "@mui/icons-material/Link";
@@ -24,6 +24,10 @@ const ProductView = () => {
     context.bigProduct.description
   );
 
+  const handleEdit = () => {
+    const url = window.location.pathname.split("/product/").join("");
+    navigate(`/edit/${url}`);
+  };
   useEffect(() => {
     // Hacer scroll al principio (Y=0) cuando el componente se monta
     window.scrollTo(0, 0);
@@ -106,7 +110,15 @@ const ProductView = () => {
       >
         Caracteristicas del producto
       </Typography>
-      <Typography>{formattedText}</Typography>
+      <Typography gutterBottom>{formattedText}</Typography>
+      <Button
+        color="secondary"
+        variant="contained"
+        sx={{ width: "160px", justifySelf: "center" }}
+        onClick={handleEdit}
+      >
+        Editar
+      </Button>
     </Container>
   );
 };
