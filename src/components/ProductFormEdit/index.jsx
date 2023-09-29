@@ -149,6 +149,7 @@ const ProductFromEdit = ({ product, setState, redirectTo }) => {
       {renderInput({ label: "Titulo", name: "title" })}
       {renderInput({ label: "URL del Producto", name: "url" })}
       {renderInput({ label: "Precio", name: "price" })}
+      {renderInput({ label: "Precio de Venta", name: "salePrice" })}
       {renderInput({
         label: "Descripción",
         name: "description",
