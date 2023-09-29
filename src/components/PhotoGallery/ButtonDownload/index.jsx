@@ -1,6 +1,5 @@
-import { Backdrop, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
-import CircularProgress from "@mui/material/CircularProgress";
 
 const ButtonDownload = ({ size, download, openBackdrop }) => {
   const handleClick = () => {

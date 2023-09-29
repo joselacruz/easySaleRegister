@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Backdrop, useMediaQuery } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
+import { useMediaQuery } from "@mui/material";
 import GalleryMovil from "./GalleryMovil";
 import GalleryDesktop from "./GalleryDesktop";
 import { useSnackbar } from "notistack";
+import LoadingBackdrop from "../LoadingBackdrop";
 
 import "./ProductGallery.css";
 
@@ -99,24 +99,10 @@ const ProductGallery = ({ images }) => {
    * para indicar que se está llevando a cabo una tarea en segundo plano, como la descarga.
    * @returns {JSX.Element} Elemento JSX que representa el Backdrop de carga.
    */
-  const renderLoadingBackdrop = () => {
-    return (
-      <Backdrop
-        sx={{
-          color: "#fff",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-        open={openBackdrop}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    );
-  };
-  // **  Fin de la Funcion renderLoadingBackdrop
 
   return (
     <>
-      {renderLoadingBackdrop()}
+      <LoadingBackdrop open={openBackdrop} />
       {isMobile ? (
         // Para Pantallas mas moviles
 

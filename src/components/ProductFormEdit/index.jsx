@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { updateFirebase } from "../../utils/firebase";
 import FileUpload from "../FileUpload";
 import { modifyImages } from "../../utils/savedImgToCloud";
+import LoadingBackdrop from "../LoadingBackdrop";
 
 const ProductFromEdit = ({ product, setState, redirectTo }) => {
   // Estado local que almacena los datos del formulario
@@ -24,6 +25,9 @@ const ProductFromEdit = ({ product, setState, redirectTo }) => {
   // Estado local que contiene las imágenes editadas
   const [images, setImages] = useState(defaulImages);
 
+  // activa el LoadingBackdrop el cual renderiza un fondo semitransparente con un indicador
+  // de carga circular
+  const [chargingStatus, setChargingStatus] = useState(false);
   /**
    * Maneja el cambio de valor en los campos del formulario.
    *
@@ -52,6 +56,9 @@ const ProductFromEdit = ({ product, setState, redirectTo }) => {
    */
 
   const handleSubmit = async (event) => {
+    // activamos el estado de carga para indicar que se está llevando a cabo la tare de actualizar los datos
+    setChargingStatus(true);
+
     // Evita que el formulario se envíe automáticamente
     event.preventDefault();
     // si fueron eliminadas todas las imagenes
@@ -75,8 +82,14 @@ const ProductFromEdit = ({ product, setState, redirectTo }) => {
 
         // actualizamos el doc de firebase
         updateFirebase({ docID: product.id, data: newData });
+
+        //redireccionamos hacia atras
+        redirectTo();
       } catch (error) {
         console.log(error);
+      } finally {
+        //detenemos el estado de carga  si la solicitud es exitosa o no
+        setChargingStatus(false);
       }
     }
   };
@@ -167,9 +180,10 @@ const ProductFromEdit = ({ product, setState, redirectTo }) => {
           loading={false}
           disabled={!areThereChanges}
         >
-          Guardar Producto
+          Guardar Cambios
         </LoadingButton>
       </Box>
+      <LoadingBackdrop open={chargingStatus} />
     </Box>
   );
 };

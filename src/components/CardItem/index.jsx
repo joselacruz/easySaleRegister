@@ -8,7 +8,6 @@ import {
   CardContent,
   CardMedia,
   CircularProgress,
-  Skeleton,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";

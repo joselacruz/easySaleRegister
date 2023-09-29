@@ -2,7 +2,6 @@ import { Box, Container, Typography } from "@mui/material";
 import ButtonDownload from "../ButtonDownload";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Children } from "react";
 
 const GalleryMovil = ({
   images,
