@@ -45,12 +45,40 @@ const CardItem = ({ item }) => {
     context.deleteProduct(item);
   }
 
+  //Rendediza un Texto en posicion absolute con un backgroud negro encimar de Card
+  //para describir que un producto no esta disponible si salePrice es 0
+  function notAvailability() {
+    return (
+      <>
+        {item.salePrice == 0 && (
+          <Typography
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "45%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              color: "#fff",
+              zIndex: 1,
+            }}
+          >
+            No disponible
+          </Typography>
+        )}
+      </>
+    );
+  }
   return (
     <>
       <Card
-        sx={{ width: 265 }}
+        sx={{ width: 265, position: "relative" }}
         elevation={4}
       >
+        {notAvailability()}
         <CardActionArea onClick={hadleNavigation}>
           {/* contenedor para mostrar un estado de carga mientras la imagen  aun
           no ha cargado  Cuando la imagen se carga y se ejecuta el evento onLoad, imageLoaded 
