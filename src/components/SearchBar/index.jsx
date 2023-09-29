@@ -210,7 +210,7 @@ const SearchBar = () => {
           onKeyDown={handleEnterKey}
         />
       </Search>
-      {isBoxOpen && query.length > 0 && (
+      {isBoxOpen && query?.length > 0 && (
         <Box
           ref={boxRef}
           position="absolute"

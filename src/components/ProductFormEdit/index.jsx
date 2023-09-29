@@ -56,9 +56,6 @@ const ProductFromEdit = ({ product, setState, redirectTo }) => {
    */
 
   const handleSubmit = async (event) => {
-    // activamos el estado de carga para indicar que se está llevando a cabo la tare de actualizar los datos
-    setChargingStatus(true);
-
     // Evita que el formulario se envíe automáticamente
     event.preventDefault();
     // si fueron eliminadas todas las imagenes
@@ -66,6 +63,8 @@ const ProductFromEdit = ({ product, setState, redirectTo }) => {
       alert("al menos una imagen es requerida");
     } else {
       try {
+        // activamos el estado de carga para indicar que se está llevando a cabo la tare de actualizar los datos
+        setChargingStatus(true);
         //si  el usuario subio  una nueva imagen y es de tipo File
         //subimos la img a imgbb para obtener la url
         const newImageUrlSavedCloud = await modifyImages(images);
@@ -164,6 +163,7 @@ const ProductFromEdit = ({ product, setState, redirectTo }) => {
       <Box
         display={"flex"}
         gap={3}
+        justifyContent={"center"}
         marginTop={3}
       >
         <Button
